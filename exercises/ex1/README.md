@@ -39,9 +39,8 @@ You, XP162 session participant number `<NN>`, have received a BTP test user acco
    ```
    https://cockpit.btp.cloud.sap/?idp=aju4hpp6l.accounts.ondemand.com
    ```
-   
-   > [!NOTE]
-   > The `?idp=` URL parameter specifies that you want to log into BTP Cockpit as a user from the custom Identity Provider `aju4hpp6l.accounts.ondemand.com`
+> [!NOTE]
+> The `?idp=` URL parameter specifies that you want to log into BTP Cockpit as a user from the custom Identity Provider `aju4hpp6l.accounts.ondemand.com`
 
 3. Enter your test user **email** and **password** and press **`Log On`**
 
@@ -84,7 +83,7 @@ Now explore which permissions your user has at the global account level.
    ✅ **Expected Result**: Here you see:
    - The list of users defined at global account level
    - When scrolling down: 50 test users (`teched.xp162.00@education.cloud.sap` to `teched.xp162.49@education.cloud.sap`) for all XP162 session participants
-   - Additional users from the session owner
+   - Additional users from the session owner (`jens.glander...`)
 
 7. Use the **search filter** to find your user `teched.xp162.<NN>@education.cloud.sap`
 
@@ -99,7 +98,7 @@ Now explore which permissions your user has at the global account level.
     ![BTP Cockpit Role Collection Global Account Viewer](./images/5_btp_cockpit_role_collection_ga_viewer.png)
 
     ✅ **Expected Result**: Here you see:
-    - All hands-on users (ID/E-Mail type `teched.xp162.<NN>@education.cloud.sap`) have only **Viewer access** to the Global Account
+    - All hands-on users (i.e. ID and E-Mail of type `teched.xp162.<NN>@education.cloud.sap`) have only **Viewer access** to the Global Account
     - This is a read-only role with limited privileges
 
     > 💡 **Key Insight**: A global account administrator has granted your test user access to 10 subaccounts. However, you only have viewer permissions at the global account level.
@@ -108,11 +107,13 @@ Now explore which permissions your user has at the global account level.
 
 ## 4. Explore Subaccount Permissions
 
-To explore what you can do in your accessible subaccounts, you have to navigate into each of them individually to check:
+To explore what you can do in your accessible subaccounts, you have to navigate into each of them individually to check information like:
 - Which permissions you have there
 - Which other users are assigned
-- What services quota is assigned
-- What subscriptions exist
+- Which services are entitled with which quota plans
+- Which services and/or subscriptions are already active
+- Is Cloud Foundry Environment enabled
+- ...
 
 **This is tedious work.** For this exercise, we'll explore just one subaccount to understand the process.
 
@@ -182,14 +183,14 @@ While all these questions *could* be answered using BTP Cockpit, it's highly ine
 - Navigate to each subaccount (10 subaccounts)
 - For each: Security → Users → Check each user's last login
 - Manually note down results
-- **Time required**: 15-20 minutes
+- **Time required**: ~5 minutes
 - **Error-prone**: Easy to miss users or make mistakes while copying data
 
 **Example: Checking which permissions you have across subaccounts**
 - Navigate to each subaccount
 - Security → Users → Search for your user → Check role collections
 - Remember or write down the results
-- **Time required**: 10 minutes
+- **Time required**: ~5 minutes
 - **Result**: You just did this in Exercise 1!
 
 ### The Solution
@@ -220,7 +221,7 @@ You have successfully completed this exercise if you can answer:
   *(Answer: 10 accessible subaccounts)*
 
 - [ ] How long did it take to find your permissions in one subaccount?  
-  *(Answer: ~5 minutes of navigation)*
+  *(Answer: ~1 minute of navigation)*
 
 ---
 
@@ -251,7 +252,7 @@ In this exercise, you:
 
 📊 **Information is fragmented**: User permissions, subaccount details, and service information are spread across multiple pages and levels
 
-⏱️ **Time-consuming**: Even simple questions require extensive navigation (5-10 minutes per query)
+⏱️ **Time-consuming**: Even simple questions require extensive navigation (~1 minute per query)
 
 🔄 **Repetitive**: You must repeat the same navigation steps for each subaccount or user
 
@@ -266,7 +267,7 @@ In this exercise, you:
 In **Exercise 2**, you'll experience the transformation:
 - Set up Claude Code CLI with BTP MCP
 - Ask the **same questions** you struggled with here
-- Get comprehensive answers in **10 seconds instead of 10 minutes**
+- Get comprehensive answers in **~10-20 seconds instead of 3-5 minutes**
 - See aggregated data across all your subaccounts at once
 
 **The baseline is established. Now let's see what's possible with AI.**
