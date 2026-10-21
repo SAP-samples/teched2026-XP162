@@ -31,11 +31,13 @@ The **MCP Server for SAP BTP Administration** exposes **58+ tools** that allow C
 - Retrieve information about services, subscriptions, and destinations
 - Perform administrative operations on your behalf
 
-This makes Claude Code an intelligent assistant that can interact with your BTP landscape using natural language.
+This makes agentic tools (here Claude Code CLI) an intelligent assistant that can interact with your BTP landscape using natural language.
 
 ---
 
-## 1. Open PowerShell Terminal
+## 1 Set up BTP MCP Server with Claude Code CLI
+
+### 1.1 Open PowerShell Terminal
 
 1. Click **`Start`** button on the Windows taskbar and search for **`Terminal`**
 
@@ -59,20 +61,18 @@ This makes Claude Code an intelligent assistant that can interact with your BTP 
    ```powershell
    cd MyFirstBtpMcpProject
    ```
+   ![Terminal as Administrator](./images/01b_terminal_as_admin.png)
 
 ---
 
-## 2. Launch Claude Code CLI
+### 1.2 Launch Claude Code CLI
 
 1. Open Claude Code CLI:
    ```powershell
    claude
    ```
-
 2. Press **`Enter`** ⏎ to confirm default text style (if Claude asks)
-
 3. Read the two security notes and press **`Enter`** ⏎ to continue
-
 4. Press **`Enter`** ⏎ again to confirm *Yes, I trust this folder*
 
    ✅ **Expected Result**: The Claude Code CLI interface is ready to take your first prompt.
@@ -81,18 +81,18 @@ This makes Claude Code an intelligent assistant that can interact with your BTP 
 
 ---
 
-## 3. Configure BTP MCP Server
+### 1.3 Configure BTP MCP Server
 
 Before using the BTP MCP server, you need to:
-1. Add the MCP configuration
-2. Set up authentication credentials
+- (1) Add the MCP configuration (1.3.2)
+- (2) Set up authentication credentials (1.3.3)
 
 We'll use VS Code to visualize the configuration.
 
-### 3.1 Open VS Code
+#### 1.3.1 Open VS Code
 
 1. Type **`exit`** and press **`Enter`** ⏎ to leave Claude:
-   ```
+   ```claude_cli
    exit
    ```
 
@@ -112,9 +112,9 @@ We'll use VS Code to visualize the configuration.
 
    💡 **Tip**: Place VS Code next to the Terminal window for easy switching.
 
-### 3.2 Add MCP Configuration
+#### 1.3.2 Add MCP Configuration
 
-4. Run this command in PowerShell to add the BTP MCP configuration:
+1. Run this command in PowerShell to add the BTP MCP configuration:
 
    ```powershell
    claude mcp add --transport http --scope project mcp-btp-admin-customidp "https://proxy.c-769d49e.kyma.ondemand.com/mcp" --header 'Authorization: Basic ${BTP_CREDENTIALS}' --header 'X-Platform-Origin: ${BTP_ORIGIN}'
@@ -129,39 +129,60 @@ We'll use VS Code to visualize the configuration.
    - Points to the BTP MCP server URL
    - Configures authentication to use environment variables `${BTP_CREDENTIALS}` and `${BTP_ORIGIN}`
 
-### 3.3 Set Authentication Credentials
+#### 1.3.3 Set Authentication Credentials
 
 Now you'll store your BTP credentials as environment variables.
 
-5. Store your BTP credentials:
+> [!CAUTION]
+> **Be very precise with email and password!** A password typo could lock your account after several failed attempts.
 
-   > [!CAUTION]
-   > **Be very precise with email and password!** A password typo could lock your account after several failed attempts.
+1. Store your BTP credentials:
 
    **Template** (don't run this - see example below):
    ```powershell
    $Env:BTP_CREDENTIALS = [Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes('<YOUR-TEST-USER-EMAIL>:<YOUR-TEST-USER-PASSWORD>'))
    ```
 
-   **Example with your credentials** (adapt to your `<NN>`):
+   **Example with your credentials** (adapt in e-mail '00' and in password '00xx' to your values):
    ```powershell
-   $Env:BTP_CREDENTIALS = [Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes('teched.xp162.00@education.cloud.sap:xp162.00xyAcce$$'))
+   $Env:BTP_CREDENTIALS = [Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes('teched.xp162.00@education.cloud.sap:xp162.00xxAcce$$'))
    ```
 
    ![Set BTP Credentials](./images/06_env_variable.png)
 
-6. Store the custom IdP origin:
+2. Verify that your stored BTP_CREDENTIALS environment variable
+
+   ```powershell
+   [Text.Encoding]::UTF8.GetString([Convert]::FromBase64String($Env:BTP_CREDENTIALS))
+   ```
+   ![Set BTP Credentials](./images/06b_env_variable.png)
+   - Confirm output: `email` of your user before the colon 
+   - Confirm output: `password` of your user after the colon 
+
+3. Store the custom IdP origin:
    ```powershell
    $Env:BTP_ORIGIN = 'aju4hpp6l'
    ```
 
    ![Set BTP Origin](./images/07_env_variable.png)
 
-   ✅ **Checkpoint**: Environment variables are set. You're ready to authenticate!
+4. Verify that your stored BTP_ORIGIN
+   ```powershell
+   $Env:BTP_ORIGIN
+   ```
+   ![Set BTP Origin](./images/07b_env_variable.png)
+   - Confirm output: `aju4hpp6l` 
+
+> [!NOTE]
+> The two stored environment variable values live only in this Terminal session. If you close the powershell Terminal and re-open it you have to store them again to work with the `mcp-btp-admin-customidp` MCP server.
+
+✅ **Checkpoint**: Environment variables are set. You're ready to authenticate!
+
+
 
 ---
 
-## 4. Verify BTP MCP Connection
+## 1.4 Verify BTP MCP Connection
 
 1. Launch Claude Code CLI again:
    ```powershell
@@ -171,7 +192,7 @@ Now you'll store your BTP credentials as environment variables.
 2. Confirm **`Use this MCP Server`** with **`Enter`** ⏎
 
 3. Open the MCP management menu:
-   ```
+   ```claude_cli
    /mcp
    ```
 
@@ -181,7 +202,7 @@ Now you'll store your BTP credentials as environment variables.
 
    ![MCP Server Connected](./images/09_mcp_server_menu.png)
 
-   > 🔧 **Troubleshooting**: If the MCP shows "Not connected", verify your `BTP_CREDENTIALS` and `BTP_ORIGIN` environment variables. Test your credentials by logging into BTP Cockpit first.
+   > 🔧 **Troubleshooting**: If the MCP shows "Not connected", verify your `BTP_CREDENTIALS` and `BTP_ORIGIN` environment variables. Test your credentials by logging into [BTP Cockpit](https://cockpit.btp.cloud.sap/?idp=aju4hpp6l.accounts.ondemand.com) first.
 
 4. Press **`Enter`** ⏎ with the MCP server selected to see details
 
@@ -192,11 +213,13 @@ Now you'll store your BTP credentials as environment variables.
    - ✅ Auth: authenticated
    - ✅ Tools: 58 available
 
-### 4.1 Explore Available Tools
+### 1.5 Explore Available Tools
 
 5. Select **`View tools`** and press **`Enter`** ⏎
 
    ![MCP Tools List](./images/11_mcp_server_menu.png)
+
+   - navigate with `up` and `down` arrow keys through the list of available tools to find out which kind of administrative information or actions the MCP can trigger.
 
    **Tool Categories:**
    - **accounts**: List Global Accounts, Create Subaccounts, etc.
@@ -204,7 +227,7 @@ Now you'll store your BTP credentials as environment variables.
    - **services**: List Subscriptions, Create Service Instances, etc.
    - **connectivity**: List Destinations, Create Destinations, etc.
 
-6. Press **`Esc`** several times to exit the MCP menu
+6. Press **`Esc`** (several times) to exit the MCP menu
 
    ✅ **Expected Result**: Claude Code CLI shows "MCP dialog dismissed" and is ready for prompts.
 
@@ -212,15 +235,15 @@ Now you'll store your BTP credentials as environment variables.
 
 ---
 
-## 5. Query Your BTP Account with Natural Language
+## 2 Query Your BTP Account with Natural Language
 
 Now the transformation begins! You'll ask the same questions from Exercise 1, but using natural language.
 
-### Query 1: Find Your Global Account
+### 2.1 Query 1: Get Your Global Account
 
 1. Copy and paste this prompt into Claude Code:
    ```
-   Which Global Account I'm assigned to and what is the Cockpit URL?
+   Which Global Account I'm assigned to? Give me the Cockpit URL to access it. Output in table format.
    ```
 
    Claude will ask permission to use tools. This is **manual mode** - you approve which tools Claude can use.
@@ -232,13 +255,25 @@ Now the transformation begins! You'll ask the same questions from Exercise 1, bu
    **Why approve?**
    - This is a read-only tool (safe to use repeatedly)
    - "Don't ask again" saves time for future calls
-   - Permissions are stored in `./.claude/settings.local.json`
+   - Permissions are stored in your project at `./.claude/settings.local.json`
+   ![Tool Permission Request](./images/13b_btp_mcp_in_action.png)
+   - The given permissions can be removed at any time so that Claude would ask again for permission for the removed tool (API). 
 
 3. Also approve **`Build Navigation Link`** tool with **`Yes, and don't ask again...`**
 
    ✅ **Expected Result**: Claude shows your Global Account name and provides a Cockpit URL.
 
    ![Global Account Result](./images/15_btp_mcp_in_action.png)
+
+> [!NOTE]
+> **About Agentic Tool Outputs:** Claude's responses are generated dynamically and may vary slightly between runs, even for identical queries. For example:
+> - The global account details might include different parameter values (more or fewer fields)
+> - Cockpit URLs may appear as full paths (e.g., https://cockpit.btp.cloud.sap/cockpit/#/globalaccount/...) or as formatted "Open in Cockpit" links
+> - Information might be formatted as tables, lists, or paragraphs
+>
+> **This is normal behavior** for agentic tools. The core information remains accurate and complete - only the presentation style varies. See the screenshot below for an example of alternative formatting for the same query.
+
+   ![Global Account Result](./images/15b_btp_mcp_in_action.png)
 
 4. **`Ctrl + Click`** on the Cockpit URL link
 
@@ -252,52 +287,81 @@ Now the transformation begins! You'll ask the same questions from Exercise 1, bu
 
 ---
 
-### Query 2: Find Your Permissions (The Same Task from Exercise 1!)
+### 2.2 Query 2: Find Your Permissions (The Same Task from Exercise 1!)
 
 Remember in Exercise 1 how you had to navigate through multiple subaccounts to find your permissions? Let's see how long it takes now.
 
-6. Copy and paste this prompt (replace `<NN>` with your number):
+5. Copy and paste this prompt (replace `<NN>` with your number):
    ```
-   Check BTP user teched.xp162.<NN>@education.cloud.sap from aju4hpp6l custom IdP: List Global Account and Subaccount role permissions for this user and provide subaccount links where user has access to.
+   Which role collections (i.e. permissions) are assigned to my user user teched.xp162.<NN>@education.cloud.sap on global account level?
    ```
 
-7. Approve any read-only tools Claude needs with **`Yes, and don't ask again...`**
+6. Approve any read-only tools Claude needs with **`Yes, and don't ask again...`**
 
-   ✅ **Expected Result**: Claude provides a comprehensive answer showing:
-   1. Your Global Account role (Viewer)
-   2. Your 2 subaccounts where you're Administrator
-   3. Your 8 subaccounts where you're Viewer
-   4. Clickable links to each subaccount
+   ✅ **Expected Result**: Claude provides the information that your test user has Global Account Viewer permission.
+ 
+   ![User Permissions Result](./images/18a_btp_mcp_in_action.png)
 
-   ![User Permissions Result](./images/18_btp_mcp_in_action.png)
+7. Copy and paste this prompt (replace `<NN>` with your number):
+   ```
+   List the accessible subaccounts of my user teched.xp162.<NN>@education.cloud.sap
+   ```
 
-   **Compare with Exercise 1:**
-   - **Exercise 1**: ~10 minutes of manual navigation
-   - **Exercise 2**: ~10 seconds with one prompt
-   - **Efficiency gain**: 60x faster! ⚡
+8. Approve any read-only tools Claude needs with **`Yes, and don't ask again...`**
+
+   ✅ **Expected Result**: Claude provides the information that your test user has access to 10 subaccounts
+
+   ![User Permissions Result](./images/18b_btp_mcp_in_action.png)
+
+9. Copy and paste this prompt (replace `<NN>` with your number):
+
+   ```
+   Which role collections (i.e. permissions) are assigned to my user user teched.xp162.<NN>@education.cloud.sap for these accessible subaccounts?
+   Create list with this info and cockpit links
+   ```
+
+10. Approve any read-only tools Claude needs with **`Yes, and don't ask again...`**
+
+   ✅ **Expected Result**: Claude provides the information that your test user has access to 2 subaccounts with `Subaccount Administrator` and 8 with `Subaccount Viewer` access.
+
+   ![User Permissions Result](./images/1_btp_mcp_in_action.png)
+
+**Summary:** 
+
+With 3 queries which took all in all ~1 min you got the same information as in Exercise 1.
+
+**Compare with Exercise 1:**
+   - **Exercise 1**: ~5-10 minutes of manual navigation
+   - **Exercise 2**: ~1 minute with one prompt
+   - **Efficiency gain**: 5-10x faster! ⚡
 
 ---
 
-## 6. Try More Administrative Queries
+## 3 Try More Administrative Queries
 
 Now experiment with the other questions from Exercise 1!
 
-### User Management
+### 3.1 User Management
 
-8. Copy and paste:
+1. Copy and paste this prompt (replace `<NN>` with your number):
    ```
-   Which users exist in my accessible subaccounts and which permissions do they have?
+   Which other users (from custom IdP and sap default IdP) exist in the accessible subaccounts of my user teched.xp162.<NN>@education.cloud.sap?
+   Which role collections (i.e. permissions) have these users there?
    ```
 
-   Approve read-only tools as needed.
+2. Approve read-only tools as needed.
 
    ✅ **Expected Result**: Comprehensive overview of all users and their permissions across your 10 subaccounts.
 
-### Inactive Users
+   ![User Management](./images/18d_btp_mcp_in_action.png)
 
-9. Copy and paste:
+
+### 3.2 Inactive Users
+
+1. Copy and paste this prompt (replace `<NN>` with your number):
    ```
-   Which users exist in which of my subaccounts and have never logged in? Create subaccount links which navigate to subaccount users UI
+   Which users (custom or sap IdP) exist in the subaccounts where my user teched.xp162.<NN>@education.cloud.sap is Subaccount Administrator and have never logged in?
+   Create cockpit links to those subaccounts users pages where inactive users exist
    ```
 
    ✅ **Expected Result**: List of users who never logged in, organized by subaccount, with direct links to manage them.
@@ -305,21 +369,24 @@ Now experiment with the other questions from Exercise 1!
    ![Inactive Users Result](./images/19_btp_mcp_in_action.png)
 
    **In Exercise 1**, this would require:
-   - Navigating to each of 10 subaccounts
+   - Navigating to each of the subaccounts
    - Checking each user's last login date
    - Manually noting down the results
-   - **Time**: 15-20 minutes
+   - **Time**: ~5 minutes (if you take all accessible subaccounts into account)
 
-   **In Exercise 2**: One prompt, ~15 seconds ⚡
+   **In Exercise 2**: One prompt, ~30 seconds ⚡
 
-### Runtime Environments
+### 3.3 Runtime Environments
 
-10. Copy and paste:
-    ```
-    Which of my subaccounts have a Cloud Foundry runtime environment?
-    ```
+1. Copy and paste:
+   ```
+   Which the accessible subaccounts of my user teched.xp162.<NN>@education.cloud.sap have a Cloud Foundry runtime environment enabled?
+   ```
+2. Approve any read-only tools Claude needs with **`Yes, and don't ask again...`**
 
-    ✅ **Expected Result**: List of subaccounts with Cloud Foundry, including org names and API endpoints.
+   ![Inactive Users Result](./images/20_btp_mcp_in_action.png)
+
+   ✅ **Expected Result**: List of subaccounts with Cloud Foundry, including org names and API endpoints.
 
 ---
 
@@ -363,9 +430,9 @@ You have successfully completed this exercise if you can:
 
 | Task | Exercise 1 (Cockpit) | Exercise 2 (MCP) | Improvement |
 |------|---------------------|------------------|-------------|
-| **Find user permissions** | ~10 minutes | ~10 seconds | **60x faster** |
-| **Identify inactive users** | ~15 minutes | ~15 seconds | **60x faster** |
-| **List runtime environments** | ~5 minutes | ~10 seconds | **30x faster** |
+| **Find user permissions** | ~5-10 minutes | ~1 minute | **~5-10x faster** |
+| **Identify inactive users** | ~5 minutes | ~30 seconds | **~10x faster** |
+| **List runtime environments** | ~5 minutes | ~30 seconds | **~10x faster** |
 
 **Key Insight:**
 Single prompts replaced multi-step navigation. Aggregated data came from all subaccounts at once. Tasks that took minutes now take seconds.
