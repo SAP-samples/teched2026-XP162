@@ -4,16 +4,20 @@
 
 ## Overview
 
-In Exercise 3, you experienced the complexity of BTP administrative workflows through the Cockpit UI: 30+ manual steps, 10-15 minutes, and multiple navigation levels just to create a single service subscription.
+In Exercise 3, you experienced the complexity of BTP administrative workflows through the Cockpit UI: 30+ manual steps, 5-10 minutes, and multiple navigation levels just to create a single service subscription.
 
 **Now experience the transformation.**
 
-In this exercise, you'll perform the **exact same administrative tasks** using BTP MCP with Claude Code CLI — but instead of clicking through dozens of pages, you'll use **natural language prompts**. What took 15 minutes and 30+ steps will now take 30 seconds and a single prompt.
+In this exercise, you'll perform the **exact same administrative tasks** using BTP MCP with Claude Code CLI — but instead of clicking through dozens of pages, you'll use **natural language prompts**. What took 5-10 minutes and 30+ steps will now take ~1 minute and a single prompt.
 
 ### What You'll Learn
 
 By the end of this exercise, you will:
+
+Part 1: 
 - Configure a second BTP MCP using SSO authentication (different from Exercise 2's Basic Auth)
+
+Part 2:
 - Perform write operations through natural language prompts
 - Execute multi-step administrative workflows automatically
 - Compare the efficiency: UI clicks vs. conversational AI
@@ -25,7 +29,7 @@ By the end of this exercise, you will:
 |------|-------------------------|----------------------|
 | **Grant subaccount access** | Navigate → Find subaccount → Actions → Add me as Admin → Confirm | `Add me as Administrator to all locked subaccounts` |
 | **Create subscription** | 30+ steps across 3 levels (Global Account → Subaccount → Users) | Single 6-line prompt |
-| **Time investment** | 10-15 minutes per subscription | 30-60 seconds |
+| **Time investment** | ~5 minutes per subscription | ~1 minute |
 | **Repeatability** | Must manually repeat for each | Reuse same prompt, change subaccount name |
 | **Error potential** | High (many click opportunities) | Low (AI validates parameters) |
 
@@ -38,7 +42,7 @@ By the end of this exercise, you will:
 - Visual Studio Code
 - Claude Code CLI
 - Your second test user credentials from Exercise 3:
-  - 📧 **Email**: `jens.glander+teched.edu.<NN>@sap.com`
+  - 📧 **Email**: `jens.glander+teched.xp162.<NN>@sap.com`
   - 🔑 **Password**: `xp162.<NN>...`
   - 🏢 **Identity Provider**: SAP ID Service (default IdP)
   - 👤 **Role**: Global Account Administrator
@@ -72,12 +76,11 @@ You'll configure a **second BTP MCP connection** using a different authenticatio
 > 💡 **Why Two MCPs?** In enterprise scenarios, you might manage multiple BTP landscapes with different identity providers. This exercise demonstrates how to work with both authentication modes.
 
 ---
-
-# 1. Set Up a Second BTP MCP Project
+## Part 1: Set Up a Second BTP MCP Project with Claude Code CLI
 
 In Exercise 2, you created a project folder `MyFirstBtpMcpProject` and connected a BTP MCP authenticated with your custom IdP user (`teched.xp162.<NN>@education.cloud.sap`).
 
-Now you'll create a **second project** `MySecondBtpMcpProject` and add a BTP MCP authenticated with your SAP ID Service user (`jens.glander+teched.edu.<NN>@sap.com`).
+Now you'll create a **second project** `MySecondBtpMcpProject` and add a BTP MCP authenticated with your SAP ID Service user (`jens.glander+teched.xp162.<NN>@sap.com`).
 
 > 💡 **Alternative Approach**: You could also add the second MCP to your first project. We're using separate projects here for clarity, but in real scenarios, one project with multiple MCP connections is common.
 
@@ -233,7 +236,7 @@ Now that the MCP is configured, you need to authenticate it using your SAP ID Se
 
    > 🌐 **What's Happening**: Claude Code launched an OAuth flow that opened your default browser. You'll authenticate there, then the browser redirects back to confirm success.
 
-6. In the browser, enter your test user **email**: `jens.glander+teched.edu.<NN>@sap.com`
+6. In the browser, enter your test user **email**: `jens.glander+teched.xp162.<NN>@sap.com`
 
 7. Enter your **password**: `xp162.<NN>...`
 
@@ -264,7 +267,7 @@ In the following sections, you will explore how this connected BTP MCP enables y
 
 ---
 
-# 2. Perform Administrative Tasks with BTP MCP
+# Part 2: Perform Administrative Tasks with BTP MCP
 
 Now that you have a connected and authenticated BTP MCP server (`mcp-btp-admin-sapidp`), you can start managing your second BTP account with it.
 
@@ -274,7 +277,7 @@ Before performing write operations, let's confirm that the MCP is connected to t
 
 1. Copy the following question and paste it as prompt in Claude Code Interface:
    ```
-   Which Global Account I'm assigned to and what is the Cockpit URL?
+   Which Global Account I'm assigned to? Give me the Cockpit URL to access it. Output in table format.
    ```
 
 2. Select and confirm **`Yes, and don't ask again...`** option for all MCP tools (which should be only read-only tools like List, Get, Build...)
@@ -287,7 +290,7 @@ Before performing write operations, let's confirm that the MCP is connected to t
 
 4. Sign in with your SAP ID test user and password if required
 
-   ✅ **Expected Result**: The BTP Cockpit opens with the home page of global account `SAP_TechEd_2026_XP162_<NN>`, SAP ID test user `jens.glander+teched.edu.<NN>@sap.com` is logged in.
+   ✅ **Expected Result**: The BTP Cockpit opens with the home page of global account `SAP_TechEd_2026_XP162_<NN>`, SAP ID test user `jens.glander+teched.xp162.<NN>@sap.com` is logged in.
 
    ![BTP Cockpit opened](./images/11_btp_cockpit.png)
 
@@ -318,11 +321,10 @@ Before performing write operations, let's confirm that the MCP is connected to t
 **The Challenge from Exercise 3:**
 - Manually clicking "..." → "Add me as Admin" → "Assign" for each locked subaccount
 - Had to do this one-by-one, navigating through Account Explorer each time
-- Time: ~2 minutes per subaccount = 8 minutes for 4 subaccounts
 
 **The BTP MCP Solution:**
 - Single natural language prompt
-- AI handles all 4 subaccounts in parallel
+- AI handles all subaccounts in parallel
 - Time: ~30 seconds total
 
 ---
@@ -337,7 +339,7 @@ As Global Account Administrator, your user wants to:
 
 1. Copy the following prompt, replace `<NN>` with yours, and paste it in Claude Code Interface:
    ```
-   For all subaccounts my user (jens.glander+teched.edu.<NN>@sap.com) has no access yet: Use subaccount update tool to add me as Administrator there. Then list which users exist in these subaccounts and who is administrator there.
+   For all subaccounts my user (jens.glander+teched.xp162.<NN>@sap.com) has no access yet: Use subaccount update tool to add me as Administrator there. Then list which users exist in these subaccounts and who is administrator there.
    ```
 
    > 💡 **What This Prompt Does**:
@@ -380,10 +382,10 @@ As Global Account Administrator, your user wants to:
    ✅ **Expected Result**: All 10 subaccounts are now accessible — no lock icons remain. The 4 previously locked DEV subaccounts now show links.
 
 > ⚡ **Efficiency Comparison**:
-> - **Exercise 3 (Manual)**: ~2 minutes per subaccount × 4 = **8 minutes**
-> - **Exercise 4 (BTP MCP)**: **30 seconds** for all 4 subaccounts
+> - **Exercise 3 (Manual)**: **~5 minutes**
+> - **Exercise 4 (BTP MCP)**:**~1 seconds** for all subaccounts
 > 
-> **Time saved: 7.5 minutes (93% reduction)**
+> **Time saved: 4 minutes (80% reduction)**
 
 ---
 
@@ -419,6 +421,9 @@ The following prompt encapsulates the entire subscription creation workflow that
 
 ### Execute the Workflow
 
+> [!NOTE]
+> Don't forget to replace `<NN>` in the pasted prompt.
+
 1. Copy the following prompt, replace `<NN>` with yours, and paste it **twice** (to expand the multi-line prompt) in Claude Code Interface:
 
    ```
@@ -428,7 +433,7 @@ The following prompt encapsulates the entire subscription creation workflow that
    2. Wait until subaccount is entitled to use SAP Business Application Studio
    3. Create a SAP Business Application Studio subscription
    4. Wait until status of created subscription is SUBSCRIBED
-   5. Assign all Business Application Studio role collections to user jens.glander+teched.edu.<NN>@sap.com
+   5. Assign all Business Application Studio role collections to user jens.glander+teched.xp162.<NN>@sap.com
    6. Provide a launch link of the subscribed SAP Business Application Studio application
    ```
 
@@ -440,7 +445,9 @@ The following prompt encapsulates the entire subscription creation workflow that
    > - Specifies exact resource names (reduces ambiguity)
    > - Requests verification output (confirms success)
 
-2. Select and confirm **`Yes, and don't ask again...`** option for all tools Claude requires to complete the workflow.
+2. Replace `<NN>` in the promt with yours
+3. Press return key ⏎ 
+4. Select and confirm **`Yes, and don't ask again...`** option for all tools Claude requires to complete the workflow.
 
    > ⚠️ **Note**: You'll see a mix of tools:
    > - **Write operations**: `Assign Entitlement`, `Create Subscription`, `Assign Role Collection`
@@ -468,7 +475,7 @@ The following prompt encapsulates the entire subscription creation workflow that
    **Completion summary (verify in screenshot):**
    1. ✅ **Entitlement assigned** to `Project-01 (DEV)` for `SAP Business Application Studio` service plan `standard-edition`
    2. ✅ **Subscription created** with status `SUBSCRIBED`
-   3. ✅ **Role collections assigned** to user `jens.glander+teched.edu.<NN>@sap.com`:
+   3. ✅ **Role collections assigned** to user `jens.glander+teched.xp162.<NN>@sap.com`:
       - `Business_Application_Studio_Administrator`
       - `Business_Application_Studio_Developer`
       - `Business_Application_Studio_Extension_Deployer`
@@ -510,7 +517,7 @@ The following prompt encapsulates the entire subscription creation workflow that
 > | Metric | Exercise 3 (Manual) | Exercise 4 (BTP MCP) | Improvement |
 > |--------|---------------------|----------------------|-------------|
 > | **Steps** | 30+ manual actions | 1 prompt | 97% reduction |
-> | **Time** | 10-15 minutes | 30-60 seconds | 90-95% reduction |
+> | **Time** | ~5 minutes | ~1 minute | ~80% reduction |
 > | **Pages/levels** | 3 (Global Account, Subaccount, Users) | 0 (no navigation) | 100% reduction |
 > | **Error potential** | High (30+ click opportunities) | Low (AI validates) | Significant decrease |
 > | **Documentation needed** | Step-by-step guide required | Prompt is self-documenting | Reusable prompt |
@@ -526,14 +533,15 @@ Now that you understand the pattern, try creating more subscriptions or performi
 
 **1. Create another subscription in a different subaccount:**
 ```
-In my subaccount "Project-02 (DEV)" create a SAP Business Application Studio subscription by executing the following subsequent steps.
+   In my subaccount "Project-02 (DEV)" create a SAP Business Application Studio subscription by executing the following subsequent steps.
 
-1. Assign subaccount entitlement for SAP Business Application Studio (sapappstudio, plan standard-edition) service to the subaccount.
-2. Wait until subaccount is entitled to use SAP Business Application Studio
-3. Create a SAP Business Application Studio subscription
-4. Wait until status of created subscription is SUBSCRIBED
-5. Assign all Business Application Studio role collections to user jens.glander+teched.edu.<NN>@sap.com
-6. Provide a launch link of the subscribed SAP Business Application Studio application
+   1. Assign subaccount entitlement for SAP Business Application Studio (sapappstudio, plan standard-edition) service to the subaccount.
+   2. Wait until subaccount is entitled to use SAP Business Application Studio
+   3. Create a SAP Business Application Studio subscription
+   4. Wait until status of created subscription is SUBSCRIBED
+   5. Assign all Business Application Studio role collections to user jens.glander+teched.xp162.<NN>@sap.com
+   6. Provide a launch link of the subscribed SAP Business Application Studio application
+
 ```
 
 **2. Create a different service subscription:**
@@ -543,7 +551,7 @@ What other services are available in my global account that I can subscribe to? 
 
 **3. Manage role collections:**
 ```
-Create a new role collection called "Developer_ReadOnly" in subaccount "Project-01 (DEV)" and assign it to user jens.glander+teched.edu.<NN>@sap.com
+Create a new role collection called "Developer_ReadOnly" in subaccount "Project-01 (DEV)" and assign it to user jens.glander+teched.xp162.<NN>@sap.com
 ```
 
 **4. Audit your landscape:**
@@ -579,7 +587,7 @@ You have successfully completed this exercise if you can:
 
 | Issue | Solution |
 |-------|----------|
-| SSO authentication fails | Ensure you're using the SAP ID Service user (`jens.glander+teched.edu.<NN>@sap.com`), not the custom IdP user from Exercise 2 |
+| SSO authentication fails | Ensure you're using the SAP ID Service user (`jens.glander+teched.xp162.<NN>@sap.com`), not the custom IdP user from Exercise 2 |
 | Browser doesn't open during authentication | Check if pop-ups are blocked. Allow pop-ups for `localhost` in browser settings |
 | MCP shows "Connected" but not "Authenticated" | Run `/mcp` → Select the MCP → Choose "Authenticate" → Complete browser login |
 | Workflow gets stuck at "Waiting for entitlement" | This can take 30-60 seconds. If > 2 minutes, check Cockpit to verify entitlement was assigned |
