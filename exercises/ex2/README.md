@@ -13,10 +13,13 @@ In this exercise, you'll use the **MCP Server for SAP BTP Administration** with 
 ## Learning Objectives
 
 By the end of this exercise, you will be able to:
+
+Part 1: 
 - Configure and authenticate the BTP MCP Server in Claude Code CLI
-- Understand the MCP architecture and authentication flow
-- Use natural language prompts to query BTP account information
 - Manage tool permissions in Claude Code
+
+Part 2: 
+- Use natural language prompts to query BTP account information
 - Experience 10x efficiency gains compared to Exercise 1
 
 ---
@@ -35,7 +38,7 @@ This makes agentic tools (here Claude Code CLI) an intelligent assistant that ca
 
 ---
 
-## 1 Set up BTP MCP Server with Claude Code CLI
+## Part 1: Set up BTP MCP Server with Claude Code CLI
 
 ### 1.1 Open PowerShell Terminal
 
@@ -235,7 +238,7 @@ Now you'll store your BTP credentials as environment variables.
 
 ---
 
-## 2 Query Your BTP Account with Natural Language
+## Part 2: Query Your BTP Account with Natural Language
 
 Now the transformation begins! You'll ask the same questions from Exercise 1, but using natural language.
 
@@ -337,11 +340,11 @@ With 3 queries which took all in all ~1 min you got the same information as in E
 
 ---
 
-## 3 Try More Administrative Queries
+### 2.3 Try More Administrative Queries
 
-Now experiment with the other questions from Exercise 1!
+Now experiment with other questions from Exercise 1 and try your own!
 
-### 3.1 User Management
+#### 2.3.1 User Management
 
 1. Copy and paste this prompt (replace `<NN>` with your number):
    ```
@@ -353,10 +356,10 @@ Now experiment with the other questions from Exercise 1!
 
    ✅ **Expected Result**: Comprehensive overview of all users and their permissions across your 10 subaccounts.
 
-   ![User Management](./images/18d_btp_mcp_in_action.png)
+   ![User Management Query Result](./images/18d_btp_mcp_in_action.png)
 
 
-### 3.2 Inactive Users
+#### 2.3.2 Inactive Users
 
 1. Copy and paste this prompt (replace `<NN>` with your number):
    ```
@@ -366,7 +369,7 @@ Now experiment with the other questions from Exercise 1!
 
    ✅ **Expected Result**: List of users who never logged in, organized by subaccount, with direct links to manage them.
 
-   ![Inactive Users Result](./images/19_btp_mcp_in_action.png)
+   ![Inactive Users Query Result](./images/19_btp_mcp_in_action.png)
 
    **In Exercise 1**, this would require:
    - Navigating to each of the subaccounts
@@ -376,7 +379,7 @@ Now experiment with the other questions from Exercise 1!
 
    **In Exercise 2**: One prompt, ~30 seconds ⚡
 
-### 3.3 Runtime Environments
+#### 2.3.3 Runtime Environments
 
 1. Copy and paste:
    ```
@@ -384,7 +387,7 @@ Now experiment with the other questions from Exercise 1!
    ```
 2. Approve any read-only tools Claude needs with **`Yes, and don't ask again...`**
 
-   ![Inactive Users Result](./images/20_btp_mcp_in_action.png)
+   ![Enabled Cloud Foundry environments Query Result](./images/20_btp_mcp_in_action.png)
 
    ✅ **Expected Result**: List of subaccounts with Cloud Foundry, including org names and API endpoints.
 
