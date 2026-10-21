@@ -53,6 +53,7 @@ You, XP162 session participant number `<NN>`, have received a **second** BTP tes
 | Aspect | Exercise 1 User | Exercise 3 User (This) |
 |--------|-----------------|------------------------|
 | **Identity Provider** | Custom IdP (aju4hpp6l) | SAP ID Service (default) |
+| **Global Account Role** | SAP_TechEd_2026_XP162 (one for all users) | **SAP_TechEd_2026_XP162_&lt;NN&gt;** (one for each user) |
 | **Global Account Role** | Global Account Viewer | **Global Account Administrator** |
 | **Subaccount Access** | 10 accessible, 90 locked | 5 accessible, 5 locked (initially) |
 | **Capabilities** | Read-only queries | **Full administrative operations** |
@@ -67,8 +68,8 @@ You, XP162 session participant number `<NN>`, have received a **second** BTP tes
 
 2. Launch https://cockpit.btp.cloud.sap
    
-   > [!NOTE]
-   > Notice: No `?idp=` parameter this time! This user authenticates via the default SAP ID Service, not a custom IdP.
+> [!NOTE]
+> Notice: No `?idp=` parameter this time! This user authenticates via the default SAP ID Service, not a custom IdP.
 
    ✅ **Expected Result**: SAP ID `Sign In` page opens.
 
@@ -90,7 +91,10 @@ You, XP162 session participant number `<NN>`, have received a **second** BTP tes
 
 ## 2. Explore the Account Structure
 
-4. Click on `Account Explorer`
+> [!NOTE]
+> **Continue with your open Chrome browser** where you have [BTP Cockpit](https://cockpit.btp.cloud.sap) already logged in with your SAP ID test user.
+
+1. Click on `Account Explorer`
 
    ![BTP Cockpit Account Explorer page](./images/03_btp_cockpit_account_explorer.png)
 
@@ -123,24 +127,22 @@ Explore further which permissions your user has on global account level.
    > - ✅ Assign yourself to non-accessible subaccounts as subaccount administrator, so that you get subaccount access
    > - ✅ Assign service quotas to any subaccount (which can be used then to create service subscriptions there)
    > - ✅ Create and manage role collections
-   > - ✅ Configure trust settings and identity providers
-   > - ✅ Manage directories and organize subaccounts
 
-These are just two examples of administrative tasks which you will perform using BTP MCP in the next Exercise 4.
+These are just few examples of administrative tasks which you will perform using BTP MCP in next exercise 4.
 
-Before describing how to use MCP to do that, we'll first describe briefly how these tasks are performed in the BTP Cockpit so you can appreciate the efficiency gains in Exercise 4.
+Before describing how to use MCP to do that, we first walk through these example administrative tasks in the BTP Cockpit so you can appreciate the efficiency gains in exercise 4.
 
 ---
 
 ## 4. Explore Administrative Information of Accessible and Non-Accessible Subaccounts
 
-You learned already in Exercise 1 how to explore your accessible subaccounts with BTP Cockpit: you navigate into each of them, looking for which permissions you have there, which other users are assigned there, if you have services quota assigned there, etc.
+You learned already in Exercise 1 how to explore your accessible subaccounts with BTP Cockpit: you navigate into each of them, looking for Role Collection (with respective access permissions) your user is assigned there, which other users exist there, if you have services entitlements available for assigning to subaccounts, etc.
 
-- If you would do that, you would e.g., find out that you are **Subaccount Administrator** in all 5 of your accessible subaccounts of type `Project-<DD> (PROD)`
+- If you would do that, you would for example find out that you are **Subaccount Administrator** in all 5 of your accessible subaccounts of type `Project-<DD> (PROD)`
 
 ### The Challenge: How Do You Explore Non-Accessible Subaccounts?
 
-**As a Global Account Administrator, you have the power to grant yourself access!**
+**As a Global Account Administrator, you have the capability to grant yourself access!**
 
 **Task: Explore for one of your 5 non-accessible subaccounts which users with permissions are defined there.**
 
@@ -201,13 +203,13 @@ This section demonstrates the **complete workflow** for making a new service ava
 
 1. Click on **`SAP_TechEd_2026_XP162_<NN>`** global account link in breadcrumb (top-left)
 
-2. Click on **`Entity Assignments`**
+2. Click on **`Entitlements > Entity Assignments`**
 
-3. Click on **`Subaccounts/Directories`** Selector
+3. Click on **`Subaccounts/Directories`** selector
 
    ![BTP Cockpit - Global Account: Entity Assignments page](./images/08_btp_cockpit_ga_entitlements.png)
 
-4. Select the subaccount **`Project-<DD> (DEV)`** where you **assigned yourself as Subaccount Administrator** before
+4. Select the subaccount **`Project-<DD> (DEV)`** where you **assigned yourself before as Subaccount Administrator**
 
 5. Press **`Select`**
 
@@ -381,7 +383,7 @@ You have successfully completed this exercise if you can answer:
 
 **Task**: Make SAP Business Application Studio available to a user
 
-**Time Investment**: 10-15 minutes of careful clicking and navigation
+**Time Investment**: ~5 minutes of careful clicking and navigation
 
 **Steps Required**:
 1. Global Account level: 16 steps to assign service plan
@@ -395,7 +397,7 @@ You have successfully completed this exercise if you can answer:
 
 | Challenge | Impact |
 |-----------|--------|
-| 🕐 **Time-consuming** | 10-15 minutes per subscription setup |
+| 🕐 **Time-consuming** | ~5 minutes per subscription setup |
 | 📝 **Error-prone** | Easy to miss a step or select wrong option |
 | 📚 **Requires documentation** | Hard to remember exact sequence without guide |
 | 🔄 **Not reusable** | Must repeat entire process for each service |
@@ -411,7 +413,7 @@ In the next exercise, you'll perform **this exact same workflow** using BTP MCP 
 ```
 BTP Cockpit (Exercise 3):
 - 30+ manual steps
-- 10-15 minutes
+- ~10+ minutes
 - Multiple page navigations
 - Error-prone clicking
 
@@ -424,9 +426,11 @@ BTP MCP + Claude Code (Exercise 4):
 
 **Example prompt you'll use:**
 ```
-Create a SAP Business Application Studio subscription in subaccount 
-Project-10 (DEV) and assign all related role collections to user 
-jens.glander+teched.edu.10@sap.com
+   In my subaccount "Project-<DD> (DEV)" create a SAP Business Application Studio subscription by executing the following subsequent steps.
+
+   1. Assign subaccount entitlement for SAP Business Application Studio (sapappstudio, plan standard-edition) service to the subaccount.
+   2. ...
+   ...
 ```
 
 That single prompt replaces all 30+ steps you just performed!
@@ -463,7 +467,7 @@ In this exercise, you successfully:
 **Key Takeaways:**
 
 ✅ **Administrator vs. Viewer**: You experienced firsthand the capabilities unlocked by administrator privileges  
-✅ **Workflow Complexity**: A simple task (make a service available) requires 30+ manual steps across multiple levels  
+✅ **Workflow Complexity**: A simple task (make a service subscription available) requires 30+ manual steps across multiple levels  
 ✅ **Time Investment**: Administrative tasks consume significant time even when you know the exact steps  
 ✅ **Error Potential**: Each step is an opportunity for mistakes (wrong selection, missed checkbox, etc.)  
 ✅ **Documentation Dependency**: Without a step-by-step guide, this workflow would be hard to execute correctly
@@ -482,7 +486,7 @@ While BTP Cockpit provides full capabilities for BTP administration, the **user 
 In **Exercise 4**, you'll discover how BTP MCP with Claude Code CLI transforms this experience:
 - From clicks to conversation
 - From manual steps to natural language
-- From 15 minutes to 30 seconds
+- From 5-10 minutes to 1-2 minutes
 - From error-prone to reliable
 - From one-off actions to reusable patterns
 
