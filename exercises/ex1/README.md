@@ -25,7 +25,7 @@ By the end of this exercise, you will be able to:
 You, XP162 session participant number `<NN>`, have received a BTP test user account:
 
 📧 **Email**: `teched.xp162.<NN>@education.cloud.sap`  
-🔑 **Password**: `xp162.<NN>...`  
+🔑 **Password**: `xp162.<NN>***`  
 🏢 **Identity Provider**: Custom IdP (`aju4hpp6l.accounts.ondemand.com`)  
 👤 **Role**: Global Account Viewer
 
@@ -141,7 +141,7 @@ To explore what you can do in your accessible subaccounts, you have to navigate 
     - In subaccount `Project-<NN> (DEV)`, your user is assigned to the **Subaccount Administrator** role
     - Your user is allowed to perform typical subaccount administrator tasks:
       - Adding users and assigning roles
-      - Creating services and subscriptions (if entitled)
+      - Creating service instances and subscriptions (if entitled)
       - Managing subaccount configurations
 
     > 💡 **Note**: To get information about your other accessible subaccounts (which permissions you have, which other users are defined), you must navigate back and forth between multiple pages. There's no aggregated view.

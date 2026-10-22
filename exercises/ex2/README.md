@@ -146,14 +146,18 @@ Now you'll store your BTP credentials as environment variables.
    $Env:BTP_CREDENTIALS = [Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes('<YOUR-TEST-USER-EMAIL>:<YOUR-TEST-USER-PASSWORD>'))
    ```
 
-   **Example with your credentials** (adapt in e-mail '00' and in password '00xx' to your values):
+   **Example with your credentials** 
+
+> [!NOTE]
+> Adapt in e-mail `NN` and in password `NN***` to your values):
+
    ```powershell
-   $Env:BTP_CREDENTIALS = [Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes('teched.xp162.00@education.cloud.sap:xp162.00xxAcce$$'))
+      $Env:BTP_CREDENTIALS = [Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes('teched.xp162.NN@education.cloud.sap:xp162.NN***'))
    ```
 
    ![Set BTP Credentials](./images/06_env_variable.png)
 
-2. Verify that your stored BTP_CREDENTIALS environment variable
+1. Verify that your stored BTP_CREDENTIALS environment variable
 
    ```powershell
    [Text.Encoding]::UTF8.GetString([Convert]::FromBase64String($Env:BTP_CREDENTIALS))
@@ -162,14 +166,14 @@ Now you'll store your BTP credentials as environment variables.
    - Confirm output: `email` of your user before the colon 
    - Confirm output: `password` of your user after the colon 
 
-3. Store the custom IdP origin:
+2. Store the custom IdP origin:
    ```powershell
    $Env:BTP_ORIGIN = 'aju4hpp6l'
    ```
 
    ![Set BTP Origin](./images/07_env_variable.png)
 
-4. Verify that your stored BTP_ORIGIN
+3. Verify that your stored BTP_ORIGIN
    ```powershell
    $Env:BTP_ORIGIN
    ```
@@ -193,6 +197,7 @@ Now you'll store your BTP credentials as environment variables.
    ```
 
 2. Confirm **`Use this MCP Server`** with **`Enter`** ⏎
+   ![MCP Server Connected](./images/08_claude_code_confirm_use_new_mcp.png)
 
 3. Open the MCP management menu:
    ```claude_cli
@@ -259,7 +264,7 @@ Now the transformation begins! You'll ask the same questions from Exercise 1, bu
    - This is a read-only tool (safe to use repeatedly)
    - "Don't ask again" saves time for future calls
    - Permissions are stored in your project at `./.claude/settings.local.json`
-   ![Tool Permission Request](./images/13b_btp_mcp_in_action.png)
+   ![Tool Permission Request](./images/14_btp_mcp_tool_usage_permisssions.png)
    - The given permissions can be removed at any time so that Claude would ask again for permission for the removed tool (API). 
 
 3. Also approve **`Build Navigation Link`** tool with **`Yes, and don't ask again...`**
@@ -276,11 +281,11 @@ Now the transformation begins! You'll ask the same questions from Exercise 1, bu
 >
 > **This is normal behavior** for agentic tools. The core information remains accurate and complete - only the presentation style varies. See the screenshot below for an example of alternative formatting for the same query.
 
-   ![Global Account Result](./images/15b_btp_mcp_in_action.png)
+   ![Global Account Result](./images/16_btp_mcp_in_action.png)
 
 4. **`Ctrl + Click`** on the Cockpit URL link
 
-5. Sign in with your test user if needed
+5. Sign in opened BTP Cockpit with your test user if needed
 
    ✅ **Expected Result**: BTP Cockpit opens to your global account home page.
 
@@ -327,7 +332,7 @@ Remember in Exercise 1 how you had to navigate through multiple subaccounts to f
 
    ✅ **Expected Result**: Claude provides the information that your test user has access to 2 subaccounts with `Subaccount Administrator` and 8 with `Subaccount Viewer` access.
 
-   ![User Permissions Result](./images/1_btp_mcp_in_action.png)
+   ![User Permissions Result](./images/18c_btp_mcp_in_action.png)
 
 **Summary:** 
 

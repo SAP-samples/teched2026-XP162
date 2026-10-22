@@ -43,7 +43,7 @@ Part 2:
 - Claude Code CLI
 - Your second test user credentials from Exercise 3:
   - 📧 **Email**: `jens.glander+teched.xp162.<NN>@sap.com`
-  - 🔑 **Password**: `xp162.<NN>...`
+  - 🔑 **Password**: `xp162.<NN>***`
   - 🏢 **Identity Provider**: SAP ID Service (default IdP)
   - 👤 **Role**: Global Account Administrator
 
@@ -201,6 +201,8 @@ Now that the MCP is configured, you need to authenticate it using your SAP ID Se
 
 2. Confirm `Use this MCP Server` with Return ⏎
 
+   ![Claude Code - Manage MCP server menu](./images/03b_mcp_server_menu.png)
+
 3. In Claude, open the `/mcp` (slash) command to enter the manage configured MCP Servers menu:
    ```
    /mcp
@@ -238,7 +240,7 @@ Now that the MCP is configured, you need to authenticate it using your SAP ID Se
 
 6. In the browser, enter your test user **email**: `jens.glander+teched.xp162.<NN>@sap.com`
 
-7. Enter your **password**: `xp162.<NN>...`
+7. Enter your **password**: `xp162.<NN>***`
 
 8. Press **`Continue`**
 

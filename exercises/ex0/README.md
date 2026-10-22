@@ -132,14 +132,14 @@ You will receive **two** test user accounts for this session:
 
 #### User 1: Custom IdP User (Exercises 1-2)
 - 📧 **Email**: `teched.xp162.<NN>@education.cloud.sap`
-- 🔑 **Password**: `xp162.<NN>...`
+- 🔑 **Password**: `xp162.<NN>***`
 - 🏢 **Identity Provider**: Custom IdP (`aju4hpp6l.accounts.ondemand.com`)
 - 👤 **Role**: Global Account Viewer
 - 🎯 **Purpose**: Experience read-only queries and basic navigation
 
 #### User 2: SAP ID Service User (Exercises 3-4)
 - 📧 **Email**: `jens.glander+teched.edu.<NN>@sap.com`
-- 🔑 **Password**: `xp162.<NN>...`
+- 🔑 **Password**: `xp162.<NN>***`
 - 🏢 **Identity Provider**: SAP ID Service (default IdP)
 - 👤 **Role**: Global Account Administrator
 - 🎯 **Purpose**: Perform write operations and administrative workflows

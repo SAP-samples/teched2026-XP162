@@ -24,7 +24,7 @@ This exercise sets the stage for **Exercise 4**, where you'll perform these same
 - Google Chrome browser
 - Your second test user credentials:
   - 📧 **Email**: `jens.glander+teched.edu.<NN>@sap.com`
-  - 🔑 **Password**: `xp162.<NN>...`
+  - 🔑 **Password**: `xp162.<NN>***`
 
 ## Learning Objectives
 
@@ -44,7 +44,7 @@ By the end of this exercise, you will be able to:
 You, XP162 session participant number `<NN>`, have received a **second** BTP test user account with **different permissions**:
 
 📧 **Email**: `jens.glander+teched.edu.<NN>@sap.com`  
-🔑 **Password**: `xp162.<NN>...`  
+🔑 **Password**: `xp162.<NN>***`  
 🏢 **Identity Provider**: SAP ID Service (default IdP, not custom)  
 👤 **Role**: **Global Account Administrator** (not just Viewer!)
 
@@ -265,13 +265,13 @@ This section demonstrates the **complete workflow** for making a new service ava
 
 **Context**: Now that the service plan is entitled at the Global Account level, you can create an actual subscription at the Subaccount level.
 
-**Steps on Subaccount Level (Services and Subscriptions page):**
+**Steps on Subaccount Level (Instances and Subscriptions page):**
 
-1. Click on **`Services > Subscriptions`** (left menu)
+1. Click on **`Instances > Subscriptions`** (left menu)
 
-   ✅ **Expected Result**: Subaccount `Services and Subscriptions` page opens from where you can create entitled service instances and subscriptions.
+   ✅ **Expected Result**: Subaccount `Instances and Subscriptions` page opens from where you can create entitled service instances and subscriptions.
 
-   ![BTP Cockpit - Subaccount: Services and Subscriptions page](./images/14_btp_cockpit_subacc_services_and_subscriptions.png)
+   ![BTP Cockpit - Subaccount: Instances and Subscriptions page](./images/14_btp_cockpit_subacc_services_and_subscriptions.png)
 
 2. Click **`Create`** (top-right)
 
@@ -339,7 +339,7 @@ This section demonstrates the **complete workflow** for making a new service ava
 
 **Context**: With the subscription created and roles assigned, you can now launch the application to verify everything works.
 
-**Steps on Subaccount Level (Services and Subscriptions page):**
+**Steps on Subaccount Level (Instances and Subscriptions page):**
 
 1. Click on **`Services > Subscriptions`** (left menu)
 
@@ -347,7 +347,7 @@ This section demonstrates the **complete workflow** for making a new service ava
 
    ✅ **Expected Result**: Details page of subscribed `SAP Business Application Studio` opens where the **`Go to Application`** link is available.
 
-   ![BTP Cockpit - Subaccount: Services and Subscriptions Detail](./images/20_btp_cockpit_subacc_services_and_subscriptions.png)
+   ![BTP Cockpit - Subaccount: Instances and Subscriptions Detail](./images/20_btp_cockpit_subacc_services_and_subscriptions.png)
 
 3. Click **`Go to Application`**
 
